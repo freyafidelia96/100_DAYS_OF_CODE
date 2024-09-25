@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Select Movie{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="heading">Select Movie</h1>
+  {% for movie in results %}
+  <p>
+    <a href="{{ url_for('update_database', 
+    movie_title=movie['title'], 
+    release_date=movie['release_date'], 
+    overview=movie['overview'], 
+    image=movie['poster_path'] if movie['poster_path'] else 'default_image.jpg') }}">
+    {{ movie['title'] }} - {{ movie['release_date'] }}
+    </a>
+  </p>
+  {% endfor %}
+</div>
+{% endblock %}
