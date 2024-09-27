@@ -2,8 +2,6 @@ from flask import Flask, render_template, request
 import requests
 import datetime as dt
 import smtplib
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 
 
 app = Flask(__name__)
