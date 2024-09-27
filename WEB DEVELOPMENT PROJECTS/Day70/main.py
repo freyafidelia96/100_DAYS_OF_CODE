@@ -302,10 +302,8 @@ def send_email(name, email, phone, message):
 
 @app.route('/doyin')
 def doyin():
-    return render_template('doyin.html')
-@app.route('/test')
-def test():
-    return render_template("test.html")
+    return render_template('doyin.html', current_user=current_user, year=DATE.year)
+
 
 if __name__ == "__main__":
     app.run(debug=False, port=5001)
