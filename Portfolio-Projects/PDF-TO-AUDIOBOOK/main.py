@@ -13,7 +13,11 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
 Bootstrap5(app)
 
-polly = boto3.client('polly', region_name='us-east-1')
+polly = boto3.client(
+    'polly',
+    aws_access_key_id = os.environ.get('AWS_AK'),
+    aws_secret_access_key =os.environ.get('AWS_SAK'),
+    region_name='us-east-1')
 
 # Directory to store uploaded files
 UPLOAD_FOLDER = 'uploads'
