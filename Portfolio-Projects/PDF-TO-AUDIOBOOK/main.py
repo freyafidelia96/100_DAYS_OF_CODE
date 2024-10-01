@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, flash, request, sen
 from flask_bootstrap import Bootstrap5
 import os
 from datetime import datetime as dt
-from PyPDF2 import PdfReader
+from pypdf import PdfReader
 import boto3
 from io import BytesIO
 
