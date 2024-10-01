@@ -10,7 +10,7 @@ YEAR = dt.now().year
 
 # Initialize Flask and AWS Polly
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('FLASH_KEY')
+app.config['SECRET_KEY'] = os.environ.get('FLASK_KEY')
 Bootstrap5(app)
 
 polly = boto3.client('polly', region_name='us-east-1')
