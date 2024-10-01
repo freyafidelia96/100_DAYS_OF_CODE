@@ -1,0 +1,60 @@
+.icon {
+    margin-right: 15px;
+    width: 50px;   /* Control the width */
+    height: 50px;  /* Control the height */
+}
+
+.fs-4 {
+    background: linear-gradient(90deg, #ff4b99, #9c6dff); /* Define your two gradient colors */
+    -webkit-background-clip: text;  /* Clip the background to the text */
+    -webkit-text-fill-color: transparent;  /* Make the text color transparent to show the background */
+    background-clip: text;  /* For non-webkit browsers */
+}
+
+body {
+    font-family: 'Source Sans 3', sans-serif;
+    background-color: #A594F9;
+}
+
+header {
+    background-color: #F5EFFF;
+}
+
+.file-upload-container {
+    border: 2px dashed #CDC1FF;  /* Dashed border with teal color */
+    border-radius: 10px;          /* Rounded corners */
+    padding: 20px;                /* Padding inside the container */
+    background-color: #F5EFFF;    /* Light background color */
+    text-align: center;          /* Center align text and content */
+}
+
+.file {
+    display: inline-block;         /* Inline block for flexible width */
+    padding: 10px 20px;            /* Padding around the button */
+    background-color: #A594F9;     /* Green background color */
+    color: white;                  /* White text */
+    font-weight: bold;             /* Bold text for the button */
+    border-radius: 5px;            /* Rounded corners */
+    cursor: pointer;               /* Pointer cursor on hover */
+    border: none;                  /* Remove default border */
+    text-align: center;            /* Center the text inside the button */
+}
+
+.file:hover {
+    background-color: #e12fe4;     /* Slightly darker green on hover */
+}
+
+.list-inline-item {
+    margin-top: 20px;
+}
+
+/* Targeting all Font Awesome icons */
+footer .fa-circle {
+    color: #e12fe4; /* Change this to your desired color */
+}
+
+/* Hover effect for the icons */
+footer .fa-stack:hover .fa-circle:hover {
+    color: #850b87; /* Change icon color on hover */
+}
+
