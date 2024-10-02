@@ -18,6 +18,12 @@ body {
 
 header {
     background-color: #F5EFFF;
+    width: 100%;
+}
+
+#mainNav {
+    width: 100%;
+    align-items: center;
 }
 
 .file-upload-container {
@@ -29,7 +35,6 @@ header {
 }
 
 .file {
-    display: inline-block;         /* Inline block for flexible width */
     padding: 10px 20px;            /* Padding around the button */
     background-color: #A594F9;     /* Green background color */
     color: white;                  /* White text */
@@ -37,7 +42,9 @@ header {
     border-radius: 5px;            /* Rounded corners */
     cursor: pointer;               /* Pointer cursor on hover */
     border: none;                  /* Remove default border */
-    text-align: center;            /* Center the text inside the button */
+    text-align: center;           /* Center the text inside the button */
+    width: 100%;
+    max-width: 300px;
 }
 
 .file:hover {
