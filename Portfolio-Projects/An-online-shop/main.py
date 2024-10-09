@@ -161,19 +161,8 @@ with app.app_context():
 
 @app.route('/')
 def home():
-    for product in products:
-        new_product = Product(
-            name=product['name'],
-            description=product['description'],
-            price=product['price'],
-            stock=product['stock'],
-            category=product['category'],
-            thumbnail=product['thumbnail']
-        )
-
-        db.session.add(new_product)
-        db.session.commit()
     products = db.session.execute(db.select(Product)).scalars().all()
+    
     return render_template('index.html', products=products, current_user=current_user)
 
 @app.route('/signup', methods=['GET', 'POST'])
