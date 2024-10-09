@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, flash, request, send_file, jsonify
+from flask import Flask, render_template, redirect, url_for, flash, request, send_file, jsonify, abort
 from flask_bootstrap import Bootstrap5
 import os
 from datetime import datetime as dt
@@ -10,6 +10,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from forms import SignUp, Login
 import requests
 from dotenv import load_dotenv
+from functools import wraps
 
 # Load environment variables from .env file
 load_dotenv()
@@ -156,229 +157,6 @@ class Payment(db.Model):
     
 with app.app_context():
     db.create_all()
-
-products = [
-    {
-        "id": 1,
-        "name": "Ace Elec 20000 mAh Ultra Slim Portable Power Bank",
-        "description": "A powerful and slim power bank with 20,000 mAh capacity. Ideal for on-the-go charging.",
-        "price": 8200.00,
-        "stock": 23,
-        "category": "Electronics",
-        "thumbnail": "static/images/powerBank.jpg",
-        "created_at": "2024-10-04 14:30:25",
-        "updated_at": "2024-10-04 14:30:25"
-    },
-    {
-        "id": 2,
-        "name": "Wireless Bluetooth Earbuds - Noise Cancelling",
-        "description": "High-quality Bluetooth earbuds with noise cancellation for crystal-clear sound.",
-        "price": 15000.00,
-        "stock": 50,
-        "category": "Electronics",
-        "thumbnail": "static/images/earpods.jpg",
-        "created_at": "2024-10-04 15:12:00",
-        "updated_at": "2024-10-04 15:12:00"
-    },
-    {
-        "id": 3,
-        "name": "Men's Slim Fit Denim Jeans",
-        "description": "Stylish slim-fit jeans perfect for casual wear. Available in various sizes.",
-        "price": 5000.00,
-        "stock": 100,
-        "category": "Fashion",
-        "thumbnail": "static/images/DenimJeans.jpg",
-        "created_at": "2024-10-04 16:20:45",
-        "updated_at": "2024-10-04 16:20:45"
-    },
-    {
-        "id": 4,
-        "name": "Luxury Women's Handbag - Leather",
-        "description": "Elegant leather handbag for women, perfect for both casual and formal occasions.",
-        "price": 25000.00,
-        "stock": 15,
-        "category": "Fashion",
-        "thumbnail": "static/images/Handbag.jpg",
-        "created_at": "2024-10-04 17:05:30",
-        "updated_at": "2024-10-04 17:05:30"
-    },
-    {
-        "id": 5,
-        "name": "Electric Hair Clipper - Professional",
-        "description": "Professional electric hair clipper with adjustable blades for precise trimming.",
-        "price": 6500.00,
-        "stock": 35,
-        "category": "Health",
-        "thumbnail": "static/images/hairclipper.avif",
-        "created_at": "2024-10-04 17:50:10",
-        "updated_at": "2024-10-04 17:50:10"
-    },
-    {
-        "id": 6,
-        "name": "Vitamin C Serum for Face - 30ml",
-        "description": "Brighten and rejuvenate your skin with this high-quality Vitamin C serum.",
-        "price": 3500.00,
-        "stock": 60,
-        "category": "Beauty",
-        "thumbnail": "static/images/FaceSerum.jpg",
-        "created_at": "2024-10-04 18:22:55",
-        "updated_at": "2024-10-04 18:22:55"
-    },
-    {
-        "id": 7,
-        "name": "Wireless Charging Pad - Fast Charge",
-        "description": "Fast-charging wireless pad compatible with a wide range of devices.",
-        "price": 4000.00,
-        "stock": 75,
-        "category": "Electronics",
-        "thumbnail": "static/images/wirelessPAd.jpg",
-        "created_at": "2024-10-04 18:45:00",
-        "updated_at": "2024-10-04 18:45:00"
-    },
-    {
-        "id": 8,
-        "name": "Men's Leather Belt - Brown",
-        "description": "Classic brown leather belt for men, perfect for formal and casual attire.",
-        "price": 3500.00,
-        "stock": 80,
-        "category": "Fashion",
-        "thumbnail": "static/images/Belt.jpg",
-        "created_at": "2024-10-04 19:05:20",
-        "updated_at": "2024-10-04 19:05:20"
-    },
-    {
-        "id": 9,
-        "name": "Women's Perfume - 50ml",
-        "description": "A refreshing and long-lasting fragrance designed for women.",
-        "price": 12000.00,
-        "stock": 40,
-        "category": "Beauty",
-        "thumbnail": "static/images/perfume.jpg",
-        "created_at": "2024-10-04 19:30:45",
-        "updated_at": "2024-10-04 19:30:45"
-    },
-    {
-        "id": 10,
-        "name": "Infrared Thermometer - Non-Contact",
-        "description": "Measure body temperature accurately with this non-contact infrared thermometer.",
-        "price": 7500.00,
-        "stock": 25,
-        "category": "Health",
-        "thumbnail": "static/images/therm.jpg",
-        "created_at": "2024-10-04 20:00:10",
-        "updated_at": "2024-10-04 20:00:10"
-    },
-     {
-        "id": 11,
-        "name": "Smart LED TV 43 Inch - Full HD",
-        "description": "Full HD 43-inch smart TV with vibrant display.",
-        "price": 120000.00,
-        "stock": 12,
-        "category": "Electronics",
-        "thumbnail": "static/images/TV.jpg",
-        "created_at": "2024-10-04 20:30:00",
-        "updated_at": "2024-10-04 20:30:00"
-    },
-    {
-        "id": 12,
-        "name": "Women's Sneakers - White",
-        "description": "Stylish white sneakers for everyday wear.",
-        "price": 8500.00,
-        "stock": 45,
-        "category": "Fashion",
-        "thumbnail": "static/images/sneakers.jpg",
-        "created_at": "2024-10-04 20:45:15",
-        "updated_at": "2024-10-04 20:45:15"
-    },
-    {
-        "id": 13,
-        "name": "Electric Toothbrush - Rechargeable",
-        "description": "Rechargeable electric toothbrush for a perfect clean.",
-        "price": 4500.00,
-        "stock": 30,
-        "category": "Health",
-        "thumbnail": "static/images/Toothbrush.jpg",
-        "created_at": "2024-10-04 21:00:20",
-        "updated_at": "2024-10-04 21:00:20"
-    },
-    {
-        "id": 14,
-        "name": "Lipstick Set - 5 Colors",
-        "description": "Vibrant lipstick set with five shades.",
-        "price": 3500.00,
-        "stock": 60,
-        "category": "Beauty",
-        "thumbnail": "static/images/lipstick.jpg",
-        "created_at": "2024-10-04 21:15:30",
-        "updated_at": "2024-10-04 21:15:30"
-    },
-    {
-        "id": 15,
-        "name": "Men's Leather Watch - Black",
-        "description": "Elegant leather watch with a classic black design.",
-        "price": 10500.00,
-        "stock": 25,
-        "category": "Fashion",
-        "thumbnail": "static/images/watch.jpg",
-        "created_at": "2024-10-04 21:30:40",
-        "updated_at": "2024-10-04 21:30:40"
-    },
-    {
-        "id": 16,
-        "name": "Gaming Mouse - RGB Lighting",
-        "description": "High-precision gaming mouse with RGB lighting.",
-        "price": 6000.00,
-        "stock": 35,
-        "category": "Electronics",
-        "thumbnail": "static/images/mouse.jpg",
-        "created_at": "2024-10-04 21:45:55",
-        "updated_at": "2024-10-04 21:45:55"
-    },
-    {
-        "id": 17,
-        "name": "Hair Dryer - 1800W",
-        "description": "Powerful 1800W hair dryer for fast drying.",
-        "price": 7200.00,
-        "stock": 40,
-        "category": "Beauty",
-        "thumbnail": "static/images/hairDryer.jpg",
-        "created_at": "2024-10-04 22:00:10",
-        "updated_at": "2024-10-04 22:00:10"
-    },
-    {
-        "id": 18,
-        "name": "Digital Kitchen Scale - 5kg Capacity",
-        "description": "Precision kitchen scale with 5kg capacity.",
-        "price": 2500.00,
-        "stock": 55,
-        "category": "Electronics",
-        "thumbnail": "static/images/scale.jpg",
-        "created_at": "2024-10-04 22:15:20",
-        "updated_at": "2024-10-04 22:15:20"
-    },
-    {
-        "id": 19,
-        "name": "Face Moisturizer - 100ml",
-        "description": "Hydrating face moisturizer for daily use.",
-        "price": 1800.00,
-        "stock": 80,
-        "category": "Beauty",
-        "thumbnail": "static/images/faceMoisturizer.jpg",
-        "created_at": "2024-10-04 22:30:30",
-        "updated_at": "2024-10-04 22:30:30"
-    },
-    {
-        "id": 20,
-        "name": "Blood Pressure Monitor - Digital",
-        "description": "Accurate digital blood pressure monitor for home use.",
-        "price": 9000.00,
-        "stock": 20,
-        "category": "Health",
-        "thumbnail": "static/images/bloodpressure.jpg",
-        "created_at": "2024-10-04 22:45:45",
-        "updated_at": "2024-10-04 22:45:45"
-    }
-]
 
 
 @app.route('/')
@@ -671,6 +449,43 @@ def search():
 
     # If no query, return an empty results page
     return render_template('search.html', query=search_query, results=[])
+
+
+
+def admin_only(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # If id is not 1 then return abort with 403 error
+        if current_user.id != 1:
+            return abort(403)
+        # Otherwise continue with the route function
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+
+@app.route('/create-product', methods=['GET', 'POST'])
+@admin_only
+def create_product():
+
+    if request.method == 'POST':
+        new_product = Product(
+            name = request.form.get('ProductName'),
+            description = request.form.get('description'),
+            price = request.form.get('price'),
+            stock = request.form.get('stock'),
+            category = request.form.get('category'),
+            thumbnail = request.form.get('thumbnail')
+        )
+
+        db.session.add(new_product)
+        db.session.commit()
+
+        return redirect(url_for('home'))
+    
+    return render_template('create_product.html')
+
+    
 
 
 if __name__ == '__main__':

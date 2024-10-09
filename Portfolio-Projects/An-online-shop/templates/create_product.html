@@ -1,0 +1,60 @@
+{% include "header.html" %}
+
+<section>
+    <div class="container">
+        <form class="needs-validation" novalidate id="checkProduct" method="POST">
+            <div class="row g-3">
+                <div class="col-sm-6">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="ProductName" placeholder="" value="" required>
+                    <div class="invalid-feedback">
+                        Valid name is required.
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="description" class="form-label">description</label>
+                    <input type="text" class="form-control" id="description" placeholder="" value="" required>
+                    <div class="invalid-feedback">
+                        Valid description is required.
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="price" class="form-label">price</label>
+                    <input type="text" class="form-control" id="price" placeholder="" value="" required>
+                    <div class="invalid-feedback">
+                        Valid price is required.
+                    </div>
+                </div>
+
+
+                <div class="col-sm-6">
+                    <label for="stock" class="form-label">stock</label>
+                    <input type="text" class="form-control" id="stock" placeholder="" value="" required>
+                    <div class="invalid-feedback">
+                        Valid stock is required.
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="category" class="form-label">category</label>
+                    <input type="text" class="form-control" id="category" placeholder="" value="" required>
+                    <div class="invalid-feedback">
+                        Valid category is required.
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="thumbnail" class="form-label">thumbnail</label>
+                    <input type="text" class="form-control" id="thumbnail" placeholder="" value="" required>
+                    <div class="invalid-feedback">
+                        Valid thumbnail is required.
+                    </div>
+                </div>
+            </div>
+            <button class="w-100 btn btn-primary btn-lg" type="submit">submit</button>
+        </form>
+</section>
+
+{% include "header.html" %}
