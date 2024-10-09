@@ -49,7 +49,7 @@ db.init_app(app)
 
 
 class Users(UserMixin, db.Model):
-    __tablename__ = "users"
+    __tablename__ = "user"
     
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     email: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
@@ -70,7 +70,7 @@ class Cart(db.Model):
     __tablename__ = "carts"
     
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    shopper_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"))
+    shopper_id: Mapped[int] = mapped_column(Integer, ForeignKey("user.id"))
     shopper = relationship("Users", back_populates="cart")
     created_at: Mapped[str] = mapped_column(String, default=dt.now().strftime('%Y-%m-%d %H:%M:%S'))
     
@@ -110,7 +110,7 @@ class Order(db.Model):
     __tablename__ = "orders"
     
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    shopper_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"))
+    shopper_id: Mapped[int] = mapped_column(Integer, ForeignKey("user.id"))
     total_price: Mapped[float] = mapped_column(DECIMAL(10, 2), nullable=False)
     status: Mapped[str] = mapped_column(String(20), default="pending")
     shipping_address: Mapped[str] = mapped_column(Text)
