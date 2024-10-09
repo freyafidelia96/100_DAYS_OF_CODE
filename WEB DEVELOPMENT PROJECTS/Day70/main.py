@@ -297,12 +297,6 @@ def send_email(name, email, phone, message):
         connection.login(MAIL_ADDRESS, MAIL_APP_PW)
         connection.sendmail(MAIL_ADDRESS, MAIL_ADDRESS, email_message)
 
-# i just want to celebrate my bestfriend birthday will soon delete
-
-@app.route('/doyin')
-def doyin():
-    return render_template('doyin.html', current_user=current_user, year=DATE.year)
-
 
 if __name__ == "__main__":
     app.run(debug=False, port=5001)
