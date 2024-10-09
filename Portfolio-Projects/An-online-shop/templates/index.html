@@ -7,7 +7,6 @@
             <h1 class="display-5 fw-bold text-body-emphasis">No match</h1>
         </div>
         {% else: %}
-        {% for i in range(2) %}
         <div class="container">
             <div class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -21,52 +20,28 @@
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                {% if i == 0: %}
-                {% for i in range(3) %}
+                {% for product in products %}
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="{{ products[i].thumbnail }}" alt="product image" class="product-img">
+                        <img src="{{ product.thumbnail }}" alt="product image" class="product-img">
                         <div class="card-body">
-                            <h5 class="card-text lh-2">{{ products[i].name }}</h5>
+                            <h5 class="card-text lh-2">{{ product.name }}</h5>
                             <h1 class="card-title pricing-card-title">
-                                ₦ {{ products[i].price }}
+                                ₦ {{ product.price }}
                             </h1>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="{{ url_for('view_product', product_id=products[i].id) }}"
+                                    <a href="{{ url_for('view_product', product_id=product.id) }}"
                                         class="btn btn-sm btn-outline-primary">View</a>
                                 </div>
-                                <small class="text-body-secondary">{{products[i].updated_at}}</small>
+                                <small class="text-body-secondary">{{product.updated_at}}</small>
                             </div>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
-                {% else: %}
-                {% for i in range(3) %}
-                <div class="col">
-                    <div class="card shadow-sm">
-                        <img src="{{ products[::-1][i].thumbnail }}" alt="product image" class="product-img">
-                        <div class="card-body">
-                            <h5 class="card-text lh-2">{{ products[::-1][i].name }}</h5>
-                            <h1 class="card-title pricing-card-title">
-                                ₦ {{ products[::-1][i].price }}
-                            </h1>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a href="{{ url_for('view_product', product_id=products[::-1][i].id) }}"
-                                        class="btn btn-sm btn-outline-primary">View</a>
-                                </div>
-                                <small class="text-body-secondary">{{products[::-1][i].updated_at}}</small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-                {% endif %}
             </div>
         </div>
-        {% endfor %}
         {% endif %}
     </div>
 </section>
