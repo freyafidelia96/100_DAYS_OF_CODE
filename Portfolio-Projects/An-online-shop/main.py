@@ -8,7 +8,6 @@ from sqlalchemy.orm import relationship, DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String, Text, Float, ForeignKey, DECIMAL, and_, or_
 from werkzeug.security import generate_password_hash, check_password_hash
 from forms import SignUp, Login
-import smtplib
 import requests
 from dotenv import load_dotenv
 
