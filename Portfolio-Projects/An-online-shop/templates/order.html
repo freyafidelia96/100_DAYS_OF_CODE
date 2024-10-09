@@ -2,6 +2,11 @@
 
 <section class="py-5 bg-body-tertiary">
     <div class="container">
+        {% if orders == []: %}
+        <div class="px-4 py-5 my-5 text-center">
+            <h1 class="display-5 fw-bold text-body-emphasis">No match</h1>
+        </div>
+        {% else: %}
         <div class="row align-items-center g-5 py-5"
             style="margin-top: revert-layer; width: 100%; margin-left: initial;">
             <div class="col-lg-8 bg-white square shadow-lg">
@@ -42,6 +47,7 @@
                 </div>
                 {% endfor %}
                 {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>

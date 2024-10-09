@@ -2,6 +2,11 @@
 
 <section>
     <div class="album py-5 bg-body-tertiary">
+        {% if products == []: %}
+        <div class="px-4 py-5 my-5 text-center">
+            <h1 class="display-5 fw-bold text-body-emphasis">No match</h1>
+        </div>
+        {% else: %}
         <div class="container">
             <div class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -35,6 +40,7 @@
                     </div>
                 </div>
                 {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>
