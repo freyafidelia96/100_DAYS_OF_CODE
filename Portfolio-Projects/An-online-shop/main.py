@@ -248,6 +248,9 @@ def view_product(product_id):
 def add_to_cart(product_id):
     user = current_user
 
+    if not user:
+        return "User not found", 404
+
     cart = db.session.execute(db.select(Cart).where(Cart.shopper_id == user.id)).scalar()
 
     if not cart:
