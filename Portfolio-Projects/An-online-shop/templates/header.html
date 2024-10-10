@@ -175,8 +175,8 @@
         </form>
         {% if not current_user.is_authenticated: %}
         <div class="text-end">
-          <a href="{{ url_for('signup') }}" class="btn btn-primary text-dark me-2">Sign Up</a>
-          <a href="{{ url_for('login') }}" class="btn btn-primary text-dark me-2">Login</a>
+          <a href="{{ url_for('signup') }}" class="btn btn-primary text-white me-2">Sign Up</a>
+          <a href="{{ url_for('login') }}" class="btn btn-primary text-white me-2">Login</a>
         </div>
         {% endif %}
       </div>
