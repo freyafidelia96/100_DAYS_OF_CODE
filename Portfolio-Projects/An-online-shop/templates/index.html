@@ -20,12 +20,7 @@
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                {% set stop_loop = False %}
                 {% for product in products %}
-                {% if product.id == 6: %}
-                {% set stop_loop = True %}
-                {% endif %}
-
                 <div class="col">
                     <div class="card shadow-sm">
                         <img src="{{ product.thumbnail }}" alt="product image" class="product-img">
