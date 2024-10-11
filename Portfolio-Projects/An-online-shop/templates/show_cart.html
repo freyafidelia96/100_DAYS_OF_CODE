@@ -2,11 +2,6 @@
 
 <section class="py-5 bg-body-tertiary">
 	<div class="container">
-		{% if results == []: %}
-		<div class="px-4 py-5 my-5 text-center">
-			<h1 class="display-5 fw-bold text-body-emphasis">No match</h1>
-		</div>
-		{% else: %}
 		<div class="row flex-lg-row-reverse align-items-center g-5 py-5"
 			style="margin-top: revert-layer; width: 100%; margin-left: initial;">
 			<div class="col-10 col-sm-8 col-lg-3 p-3 my-3 text-black bg-white rounded-3 shadow-lg"
@@ -16,8 +11,10 @@
 				<p class="lh-1 lead" style="color: black;">Subtotal: ₦{{ sum }}</p>
 				<hr>
 				<div class="d-grid gap-2 d-md-flex justify-content-md-start">
+					{% if sum != '0': %}
 					<a href="{{ url_for('checkout', cart_id=cart_id, sum=sum) }}"
 						class="btn btn-primary btn-lg px-4 me-md-2" style="width: 100%;">Checkout</a>
+					{% endif %}
 				</div>
 			</div>
 			<div class="col-lg-8 bg-white square shadow-lg">
@@ -87,7 +84,6 @@
 
 				</div>
 				{% endfor %}
-				{% endif %}
 			</div>
 		</div>
 	</div>

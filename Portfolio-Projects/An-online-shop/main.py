@@ -42,7 +42,6 @@ def load_user(user_id):
 class Base(DeclarativeBase):
     pass
 
-
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DB_URI", "sqlite:///posts.db")
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
@@ -159,6 +158,8 @@ with app.app_context():
     db.create_all()
 
 
+
+
 @app.route('/')
 def home():
     products = db.session.execute(db.select(Product)).scalars().all()
@@ -248,9 +249,6 @@ def view_product(product_id):
 def add_to_cart(product_id):
     user = current_user
 
-    if not user:
-        return "User not found", 404
-
     cart = db.session.execute(db.select(Cart).where(Cart.shopper_id == user.id)).scalar()
 
     if not cart:
@@ -277,11 +275,22 @@ def add_to_cart(product_id):
 
     
 
-@app.route('/show-cart/<cart_id>')
+@app.route('/show-cart')
 @login_required
-def show_cart(cart_id):
-    print(cart_id)
-    cart = db.session.execute(db.select(Cart).where(Cart.id == cart_id)).scalar()
+def show_cart():
+    try:
+        cart_id = current_user.cart.id
+
+    except AttributeError:
+        new_cart = Cart(
+            shopper_id = current_user.id
+        )
+
+        db.session.add(new_cart)
+        db.session.commit()
+
+    cart = current_user.cart
+
     cart_items = cart.cart_items
     sum = 0
     for item in cart_items:
@@ -289,7 +298,7 @@ def show_cart(cart_id):
 
     formatted_sum = "{:,}".format(sum)
 
-    return render_template('show_cart.html', cart_items=cart_items, sum=formatted_sum, cart_id=cart_id, current_user=current_user)
+    return render_template('show_cart.html', cart_items=cart_items, sum=formatted_sum, cart_id=current_user.cart.id, current_user=current_user)
 
 
 
