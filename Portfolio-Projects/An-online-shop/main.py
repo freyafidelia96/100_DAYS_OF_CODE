@@ -162,7 +162,7 @@ with app.app_context():
 
 @app.route('/')
 def home():
-    products = db.session.execute(db.select(Product)).scalars().all()
+    products = db.session.execute(db.select(Product).where(Product.id < 7)).scalars().all()
         
     return render_template('index.html', products=products, current_user=current_user)
 
