@@ -163,7 +163,7 @@ with app.app_context():
 @app.route('/')
 def home():
     products = db.session.execute(db.select(Product)).scalars().all()
-    
+        
     return render_template('index.html', products=products, current_user=current_user)
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -483,11 +483,7 @@ def create_product():
         db.session.commit()
 
         return redirect(url_for('home'))
-    
     return render_template('create_product.html')
-
-    
-
 
 if __name__ == '__main__':
     app.run(debug=True)

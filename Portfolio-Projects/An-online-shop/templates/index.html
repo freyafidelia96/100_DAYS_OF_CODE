@@ -15,26 +15,26 @@
                         d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09zM4.157 8.5H7a.5.5 0 0 1 .478.647L6.11 13.59l5.732-6.09H9a.5.5 0 0 1-.478-.647L9.89 2.41z" />
                 </svg>
                 <div class="lh-1">
-                    <h1 class="h6 mb-0 lh-1">Flash Sales</h1>
+                    <h1 class="h6 p-1 mb-0 lh-1">Flash Sales</h1>
                     <small></small>
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                {% for product in products %}
+                {% for i in range(6) %}
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="{{ product.thumbnail }}" alt="product image" class="product-img">
+                        <img src="{{ products[i].thumbnail }}" alt="product image" class="products-img">
                         <div class="card-body">
-                            <h5 class="card-text lh-2">{{ product.name }}</h5>
+                            <h5 class="card-text lh-2">{{ products[i].name }}</h5>
                             <h1 class="card-title pricing-card-title">
-                                ₦ {{ product.price }}
+                                ₦ {{ products[i].price }}
                             </h1>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a href="{{ url_for('view_product', product_id=product.id) }}"
+                                    <a href="{{ url_for('view_product', product_id=products[i].id) }}"
                                         class="btn btn-sm btn-outline-primary">View</a>
                                 </div>
-                                <small class="text-body-secondary">{{product.updated_at}}</small>
+                                <small class="text-body-secondary">{{products[i].updated_at}}</small>
                             </div>
                         </div>
                     </div>

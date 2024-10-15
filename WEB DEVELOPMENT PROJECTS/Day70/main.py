@@ -72,7 +72,7 @@ class BlogPost(db.Model):
     __tablename__ = "blog_posts"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     # Create Foreign Key, "users.id" the users refers to the tablename of User.
-    author_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("users.id"))
+    author_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("user.id"))
     # Create reference to the User object. The "posts" refers to the posts property in the User class.
     author = relationship("User", back_populates="posts")
     title: Mapped[str] = mapped_column(String(250), unique=True, nullable=False)
@@ -86,7 +86,7 @@ class BlogPost(db.Model):
 
 # Create a User table for all your registered users
 class User(UserMixin, db.Model):
-    __tablename__ = "users"
+    __tablename__ = "user"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     email: Mapped[str] = mapped_column(String(100), unique=True)
     password: Mapped[str] = mapped_column(String(100))
@@ -105,7 +105,7 @@ class Comment(db.Model):
     text: Mapped[str] = mapped_column(Text, nullable=False)
     # Child relationship:"users.id" The users refers to the tablename of the User class.
     # "comments" refers to the comments property in the User class.
-    author_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("users.id"))
+    author_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("user.id"))
     comment_author = relationship("User", back_populates="comments")
     # Child Relationship to the BlogPosts
     post_id: Mapped[str] = mapped_column(Integer, db.ForeignKey("blog_posts.id"))
