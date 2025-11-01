@@ -1,0 +1,67 @@
+body,
+html {
+    font-family: "Poppins", serif !important;
+}
+
+.container {
+    max-width: 1400px;
+    margin: auto;
+}
+
+.header {
+    text-align: center;
+}
+
+.main {
+    display: flex;
+    width: 100%;
+}
+
+.main>div {
+    flex-basis: 50%;
+}
+
+.main,
+.todo-form,
+.todo-list {
+    border: 1px solid brown;
+}
+
+.todo-form {
+    padding-left: 3%;
+}
+
+.todo-form .form-input {
+    margin-bottom: 40px;
+}
+
+.todo-form .form-input label {
+    font-weight: 600;
+}
+
+.todo-form .form-input input,
+.todo-form .form-input textarea {
+    padding: 10px 20px;
+    width: 90%;
+    max-width: 450px;
+}
+
+.todo-form .form-submit button {
+    padding: 10px 20px;
+    font-weight: 600;
+    background: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+.todo-list {
+    padding: 3%;
+}
+
+.todo-list-wrapper .todo-list-item {
+    border-radius: 2px;
+    border: 1px solid black;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+}

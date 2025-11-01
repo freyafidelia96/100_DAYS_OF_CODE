@@ -15,6 +15,12 @@ from functools import wraps
 # Load environment variables from .env file
 load_dotenv()
 
+def format_price(amount):
+    """Format price with thousand separator and 2 decimal places"""
+    try:
+        return "{:,.2f}".format(float(amount))
+    except (ValueError, TypeError):
+        return "0.00"
 
 
 YEAR = dt.now().year
@@ -163,6 +169,9 @@ with app.app_context():
 @app.route('/')
 def home():
     products = db.session.execute(db.select(Product).where(Product.id < 11)).scalars().all()
+    # Format prices for all products
+    for product in products:
+        product.formatted_price = format_price(product.price)
     return render_template('index.html', products=products, current_user=current_user)
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -237,7 +246,7 @@ def logout():
 def view_product(product_id):
     product = db.session.execute(db.select(Product).where(Product.id == product_id)).scalar()
 
-    product_price = "{:,}".format(product.price)
+    product_price = format_price(product.price)
     return render_template('product.html', product=product, product_price=product_price, current_user=current_user)
 
 
@@ -295,7 +304,7 @@ def show_cart():
     for item in cart_items:
         sum += item.product.price * item.quantity
 
-    formatted_sum = "{:,}".format(sum)
+    formatted_sum = format_price(sum)
 
     return render_template('show_cart.html', cart_items=cart_items, sum=formatted_sum, cart_id=current_user.cart.id, current_user=current_user)
 

@@ -61,7 +61,11 @@ def home():
 # HTTP GET - Read Record
 @app.route('/random', methods=['GET'])
 def ranDom():
-    random_guess = random.randint(1, 21)
+    all_cafes = db.session.execute(db.select(Cafe)).scalars().all()
+
+    length_all_cafes = len(all_cafes)
+
+    random_guess = random.randint(1, length_all_cafes)
 
     random_cafe = db.session.execute(db.select(Cafe).where(Cafe.id == random_guess)).scalar()
 
@@ -84,8 +88,8 @@ def search():
 
     return jsonify(cafes=[cafe.to_dict() for cafe in location_to_search]) if location_to_search != [] else jsonify(error=error)
 
-# HTTP POST - Create Record
 
+# HTTP POST - Create Record
 @app.route('/add', methods=["POST"])
 def add():
     new_cafe = Cafe(
@@ -102,10 +106,12 @@ def add():
     )
     db.session.add(new_cafe)
     db.session.commit()
+
     return jsonify(response={"success": "Successfully added the new cafe."})
 
-# HTTP PUT/PATCH - Update Record
 
+
+# HTTP PUT/PATCH - Update Record
 @app.route('/update-price/<cafe_id>', methods=["PATCH"])
 def update_price(cafe_id):
     try:
@@ -116,9 +122,9 @@ def update_price(cafe_id):
         return jsonify(error={"Not Found": "Sorry, a cafe with that id was not found in the database"}), 404
     else:
         return jsonify(response={"success": "Successfully added the new cafe."}), 200
+    
+
 # HTTP DELETE - Delete Record
-
-
 @app.route('/report-closed/<cafe_id>', methods=['DELETE'])
 def delete(cafe_id):
     inputted_api_key = request.args.get('api-key')
